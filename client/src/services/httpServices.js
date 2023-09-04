@@ -2,7 +2,9 @@ import axios from "axios";
 
 let AxiosCreator;
 
-export const nodeApiUrl = "http://localhost:5001/api/";
+// export const nodeApiUrl = "http://localhost:5001/api/";
+export const nodeApiUrl =
+  "https://contact-manager-vishalmakwana.onrender.com/api/";
 
 if (typeof window !== "undefined") {
   AxiosCreator = axios.create({
