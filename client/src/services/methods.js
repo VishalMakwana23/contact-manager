@@ -13,10 +13,8 @@ export const GET = async (url) => {
 };
 
 export const POST = async (url, payload) => {
-  console.log("🚀 ~ file: methods.js:16 ~ POST ~ url:", url);
   try {
     const res = await AxiosCreator.post(url, payload);
-    console.log("🚀 ~ file: methods.js:18 ~ POST ~ res:", res);
     return res.data;
   } catch (error) {
     return error;

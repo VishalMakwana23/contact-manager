@@ -1,5 +1,6 @@
-import { Input } from "../Input";
-import styles from "./addcontact.module.scss";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import {
   MdPersonAddAlt1,
   MdAddCircle,
@@ -7,10 +8,9 @@ import {
   MdLogout,
   MdEdit,
 } from "react-icons/md";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { POST, PUT } from "../../services/methods";
-import toast from "react-hot-toast";
+import { Input } from "../Input";
+import styles from "./addcontact.module.scss";
 
 const initialValues = {
   avatar: "",
@@ -21,10 +21,9 @@ const initialValues = {
 };
 
 export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
-  const history = useHistory();
-
   const [isShowing, setIsShowing] = useState(false);
   const [formValue, setFormValue] = useState(initialValues);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isEditContact) {
@@ -41,7 +40,7 @@ export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
 
   const handleLogout = () => {
     localStorage.setItem("accessToken", "");
-    history.push("/login");
+    navigate("/login");
   };
 
   async function onSubmit(event) {

@@ -4,15 +4,14 @@ import styles from "./login.module.scss";
 import { MdLogin } from "react-icons/md";
 import { useState } from "react";
 import { POST } from "../../services/methods";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const history = useHistory();
-
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleIsLoginForm = (isShow) => {
     setEmail("");
@@ -33,7 +32,7 @@ export default function Login() {
       if (login.data.accessToken) {
         toast.success(login.data.message);
         localStorage.setItem("accessToken", login.data.accessToken);
-        history.push("/home");
+        navigate("/");
       } else {
         toast.error(login.data.message);
       }

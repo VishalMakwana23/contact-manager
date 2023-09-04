@@ -1,13 +1,18 @@
     # dependencies
     /node_modules
+    /dist
     /.pnp
     .pnp.js
+    .env
 
     # testing
     /coverage
 
     # production
     /build
+    client/dist/
+	nginx_signing.key
+
 
     # misc
     # .DS_Store

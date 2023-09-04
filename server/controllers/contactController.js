@@ -31,12 +31,7 @@ const getContact = asyncHandler(async (req, res) => {
 //@route POST /api/contacts
 //@access Private
 const createContact = asyncHandler(async (req, res) => {
-  console.log(
-    "🚀 ~ file: contactController.js:34 ~ createContact ~ req:",
-    req.body
-  );
   const { avatar, name, email, phone, description } = req.body;
-
   if (!avatar || !name || !email || !phone) {
     res.status(400);
     throw new Error("All fields are mandatory !");
@@ -50,12 +45,6 @@ const createContact = asyncHandler(async (req, res) => {
     description,
     user_id: req.user.id,
   });
-
-  console.log(
-    "🚀 ~ file: contactController.js:49 ~ createContact ~ contact:",
-    contact
-  );
-
   res.status(201).json({ data: { contact, message: "Contact created" } });
 });
 
