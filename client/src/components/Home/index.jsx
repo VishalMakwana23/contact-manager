@@ -10,6 +10,7 @@ const Home = () => {
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [isEditContact, setIsEditContact] = useState(false);
   const [search, setSearch] = useState("");
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   useEffect(() => {
     if (contactData) {
@@ -30,12 +31,14 @@ const Home = () => {
   };
 
   const deleteContact = async (id) => {
+    setIsDeleteLoading(true);
     const deletedContact = await DELETE(`/contacts/${id}`);
     if (deletedContact.data) {
       toast.success(deletedContact.data.message);
       getContacts();
       setIsEditContact(false);
     }
+    setIsDeleteLoading(false);
   };
 
   useEffect(() => {
@@ -59,6 +62,7 @@ const Home = () => {
         deleteContact={deleteContact}
         search={search}
         editContact={editContact}
+        isDeleteLoading={isDeleteLoading}
       />
     </>
   );

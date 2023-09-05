@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { ThreeCircles } from "react-loader-spinner";
 import {
   MdPersonAddAlt1,
   MdAddCircle,
@@ -23,6 +24,8 @@ const initialValues = {
 export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
   const [isShowing, setIsShowing] = useState(false);
   const [formValue, setFormValue] = useState(initialValues);
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +48,7 @@ export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
 
   async function onSubmit(event) {
     event.preventDefault();
+    setIsLoading(true);
 
     const payload = {
       avatar: !formValue.avatar ? null : formValue.avatar,
@@ -70,6 +74,7 @@ export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
         setFormValue(initialValues);
       }
     }
+    setIsLoading(false);
   }
 
   const handleInputChange = (e) => {
@@ -94,6 +99,7 @@ export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
           onClick={toggleForm}
           className={isShowing ? styles.circle : ""}
           style={isShowing ? { background: "#fe6161" } : {}}
+          disabled={isLoading}
         >
           {isShowing ? (
             <MdRemoveCircle size={20} />
@@ -163,8 +169,28 @@ export function AddContact({ getContacts, isEditContact, setIsEditContact }) {
                 value={formValue.description}
               />
 
-              <button className={styles.circle}>
-                {isEditContact ? (
+              <button
+                className={styles.circle}
+                style={{
+                  border: isLoading ? "1px solid #999999" : "",
+                  backgroundColor: isLoading ? "#cccccc" : "",
+                  color: isLoading ? "#666666" : "",
+                }}
+              >
+                {isLoading ? (
+                  <ThreeCircles
+                    height="20"
+                    width="20"
+                    color="#4b9d5e"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="three-circles-rotating"
+                    outerCircleColor=""
+                    innerCircleColor=""
+                    middleCircleColor=""
+                  />
+                ) : isEditContact ? (
                   <MdEdit size={20} />
                 ) : (
                   <MdAddCircle size={20} />

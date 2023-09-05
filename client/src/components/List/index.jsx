@@ -2,7 +2,13 @@ import { Contact } from "../Contact";
 import styles from "./list.module.scss";
 import { FaSadTear } from "react-icons/fa";
 
-export function List({ filteredContacts, editContact, deleteContact, search }) {
+export function List({
+  filteredContacts,
+  editContact,
+  deleteContact,
+  search,
+  isDeleteLoading,
+}) {
   return (
     <section className={styles.container}>
       {filteredContacts.map((item) => {
@@ -12,6 +18,7 @@ export function List({ filteredContacts, editContact, deleteContact, search }) {
             contactData={item}
             editContact={editContact}
             deleteContact={deleteContact}
+            isDeleteLoading={isDeleteLoading}
           />
         );
       })}

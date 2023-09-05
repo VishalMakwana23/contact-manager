@@ -5,12 +5,14 @@ import { MdLogin } from "react-icons/md";
 import { useState } from "react";
 import { POST } from "../../services/methods";
 import { useNavigate } from "react-router-dom";
+import { ThreeCircles } from "react-loader-spinner";
 
 export default function Login() {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleIsLoginForm = (isShow) => {
@@ -22,6 +24,7 @@ export default function Login() {
 
   async function onSubmit(event) {
     event.preventDefault();
+    setIsLoading(true);
 
     if (isLoginForm) {
       const payload = {
@@ -50,6 +53,7 @@ export default function Login() {
         toast.error(register.data.message);
       }
     }
+    setIsLoading(false);
   }
 
   function onChangeUsername(event) {
@@ -97,7 +101,29 @@ export default function Login() {
           value={password}
         />
 
-        <button>
+        <button
+          style={{
+            border: isLoading ? "1px solid #999999" : "",
+            backgroundColor: isLoading ? "#cccccc" : "",
+            color: isLoading ? "#666666" : "",
+          }}
+          disabled={isLoading}
+        >
+          {isLoading && (
+            <ThreeCircles
+              height="20"
+              width="20"
+              color="#4b9d5e"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="three-circles-rotating"
+              outerCircleColor=""
+              innerCircleColor=""
+              middleCircleColor=""
+            />
+          )}
+
           <MdLogin size={20} />
           {isLoginForm ? "Login" : "Register"}
         </button>
