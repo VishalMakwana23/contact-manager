@@ -1,6 +1,7 @@
 # Contact Manager using NodeJS And ReactJS
 > This is Contact Manager MERN project.
-> https://collect-contacts.netlify.app
+
+>  Live URL : https://collect-contacts.netlify.app
 
 ## Routes
 ```bash
